@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   leftPane: {
     height: "540px",
+    overflow: "auto"
   },
   rightPane: {
     height: "518px",
@@ -35,38 +36,43 @@ function Report() {
 
   const classes = useStyles();
 
-    useEffect(() => {
-        const fetchReports = async () => {
-            let res;
-            try {
-                res = await axios('http://10.3.0.104:8080/reportList');
-            } catch(err) {
-                setError(err.message);
-            } finally {
-                // console.log(res.data)
-                setReports(res.data);
-                // console.log(reports);
-            }
-        }
+  useEffect(() => {
+    const fetchReports = async () => {
+      let res;
+      try {
+        res = await axios('http://10.3.0.104:8080/reportList');
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        // console.log(res.data)
+        setReports(res.data);
+        setLoading(false);
+        // console.log(reports);
+      }
+    }
 
     fetchReports();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Grid container spacing={3} className={classes.root}>
-      <Grid container item xs={3} className={classes.leftPane}>
-        <Paper className={classes.paper}>
-          <h1>Reports</h1>
-          <ReportList reports={reports} />
-        </Paper>
-      </Grid>
-      <Grid item xs={9} className={classes.rightPane}>
-        <Paper className={classes.paper} className={classes.iframePane}>
-          <ReportView />
-        </Paper>
-      </Grid>
-    </Grid>
+    <div>
+      {loading && <h1>LOADING!!</h1>}
+      {error && <h1>{error}</h1>}
+      {!loading && !error && <Grid container spacing={3} className={classes.root}>
+        <Grid container item xs={3} className={classes.leftPane}>
+          <Paper className={classes.paper}>
+            <h1>Reports</h1>
+            <ReportList reports={reports} />
+          </Paper>
+        </Grid>
+        <Grid item xs={9} className={classes.rightPane}>
+          <Paper className={classes.paper} className={classes.iframePane}>
+            <ReportView />
+          </Paper>
+        </Grid>
+      </Grid>}
+    </div>
   );
 }
 
