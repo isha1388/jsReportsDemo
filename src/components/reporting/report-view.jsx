@@ -10,9 +10,9 @@ function ReportView() {
   useEffect(() => {
     const fetchReport = async () => {
       let res, fileURL;
-
+// http://localhost:8080/reportPDF/{logtype}?pdftype=chrome-pdf //http://localhost:8080/reportPDF/{logtype}?pdftype=chrome-pdf&limit=10
       try {
-        res = await axios("http://10.3.0.104:8080/reportPDF/LD", {
+        res = await axios("http://10.3.0.104:8080/reportPDF/LS?pdfType=chrome-pdf&limit=10", {
           method: "GET",
           responseType: "blob", //Force to receive data in a Blob Format
         });
