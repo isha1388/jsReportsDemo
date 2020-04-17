@@ -27,12 +27,12 @@ function Report() {
         const fetchReports = async () => {
             let res;
             try {
-                res = await axios('http://localhost:5488/odata/templates?$select=name');
+                res = await axios('http://10.3.0.104:8080/reportList');
             } catch(err) {
                 setError(err.message);
             } finally {
                 // console.log(res.data)
-                setReports(res.data.value);
+                setReports(res.data);
                 // console.log(reports);
             }
         }
