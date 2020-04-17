@@ -7,8 +7,8 @@ function ReportList(props) {
   function renderList() {
     const reports = props.reports;
     return reports.map((report) => (
-      <ListItem key={report._id}>
-        <ListItemText primary={report.name} />
+      <ListItem key={report.id}>
+        <ListItemText primary={report.reportname} />
       </ListItem>
     ));
   }

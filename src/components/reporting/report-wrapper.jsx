@@ -35,19 +35,19 @@ function Report() {
 
   const classes = useStyles();
 
-  useEffect(() => {
-    const fetchReports = async () => {
-      let res;
-      try {
-        res = await axios("http://localhost:5488/odata/templates?$select=name");
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        // console.log(res.data)
-        setReports(res.data.value);
-        // console.log(reports);
-      }
-    };
+    useEffect(() => {
+        const fetchReports = async () => {
+            let res;
+            try {
+                res = await axios('http://10.3.0.104:8080/reportList');
+            } catch(err) {
+                setError(err.message);
+            } finally {
+                // console.log(res.data)
+                setReports(res.data);
+                // console.log(reports);
+            }
+        }
 
     fetchReports();
     // eslint-disable-next-line react-hooks/exhaustive-deps

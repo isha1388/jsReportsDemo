@@ -12,7 +12,7 @@ function ReportView() {
       let res, fileURL;
 
       try {
-        res = await axios("http://localhost:8080/report/pdf/", {
+        res = await axios("http://10.3.0.104:8080/reportPDF/LD", {
           method: "GET",
           responseType: "blob", //Force to receive data in a Blob Format
         });
