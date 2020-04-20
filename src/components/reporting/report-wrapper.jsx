@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto"
   },
   rightPane: {
-    height: "518px",
+    height: "520px",
   },
   iframePane: {
     height: "100%",
@@ -33,7 +33,7 @@ function Report() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+    const [selectedReport, setSelectedReport ] = useState({});
   const classes = useStyles();
 
   useEffect(() => {
@@ -46,6 +46,7 @@ function Report() {
       } finally {
         // console.log(res.data)
         setReports(res.data);
+        setSelectedReport(res.data[0]);
         setLoading(false);
         // console.log(reports);
       }
@@ -55,6 +56,9 @@ function Report() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleReportClicked = (report) => {
+    setSelectedReport(report)
+  }
   return (
     <div>
       {loading && <h1>LOADING!!</h1>}
@@ -63,12 +67,12 @@ function Report() {
         <Grid container item xs={3} className={classes.leftPane}>
           <Paper className={classes.paper}>
             <h1>Reports</h1>
-            <ReportList reports={reports} />
+            <ReportList reports={reports} handleReportClicked={handleReportClicked}/>
           </Paper>
         </Grid>
         <Grid item xs={9} className={classes.rightPane}>
           <Paper className={classes.paper} className={classes.iframePane}>
-            <ReportView />
+            {selectedReport && <ReportView selectedReport={selectedReport}/>}
           </Paper>
         </Grid>
       </Grid>}
