@@ -31,10 +31,13 @@ function ReportView() {
       } finally {
         const mimeType = (apiURL.indexOf('PDF') >= 0) ? 'application/pdf' : 'text/html';
         //Create a Blob from the PDF Stream
-        const file = new Blob([res.data], { type: mimeType });
 
-        //Build a URL from the file
-        setfileURL(URL.createObjectURL(file));
+        if(res && res.data){
+          const file = new Blob([res.data], { type: mimeType });
+
+          //Build a URL from the file
+          setfileURL(URL.createObjectURL(file));
+        }
 
         setLoading(false);
       }
