@@ -45,10 +45,10 @@ function Report() {
         setError(err.message);
       } finally {
         // console.log(res.data)
-        setReports(res.data);
+        res && res.data && setReports(res.data);
         setSelectedReport(res.data[0]);
+        res && res.data && setReports(res.data);
         setLoading(false);
-        // console.log(reports);
       }
     }
 

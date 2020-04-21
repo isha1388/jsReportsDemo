@@ -29,7 +29,7 @@ function ReportView(props) {
         //apiURL = 'http://10.3.0.104:8080/reportPDF/LS?pdfType=chrome-pdf&limit=10';
         const logType = props.selectedReport.type === 'Log Summary' ? 'LS' : 'LD';
         const chromeType = (formatType === 'reportHTML') ? '' : 'pdfType=chrome-pdf&'
-        apiURL = `http://10.3.0.104:8080/${formatType}/${logType}?${chromeType}limit=10`;
+        apiURL = `http://10.3.0.104:8080/${formatType}/${logType}?${chromeType}limit=20`;
         res = await axios(apiURL, {
           responseType: "blob", //Force to receive data in a Blob Format
         });
@@ -38,11 +38,14 @@ function ReportView(props) {
       } finally {
         const mimeType = (apiURL.indexOf('PDF') >= 0) ? 'application/pdf' : 'text/html';
         //Create a Blob from the PDF Stream
-        const file = new Blob([res.data], { type: mimeType });
-  
-        //Build a URL from the file
-        setfileURL(URL.createObjectURL(file));
-  
+
+        if(res && res.data){
+          const file = new Blob([res.data], { type: mimeType });
+
+          //Build a URL from the file
+          setfileURL(URL.createObjectURL(file));
+        }
+
         setLoading(false);
       }
     };
